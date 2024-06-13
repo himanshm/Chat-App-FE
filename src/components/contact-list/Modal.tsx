@@ -1,15 +1,45 @@
+import { useEffect, useRef, useState } from 'react';
+
 type ModalProps = {
-  isOpen: boolean;
   onClose: () => void;
   onMarkAsUnread: () => void;
   onDelete: () => void;
+  position: { top: number; left: number };
 };
 
-function Modal({ isOpen, onClose, onMarkAsUnread, onDelete }: ModalProps) {
-  if (!isOpen) return null;
+function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
+  const [modalPosition, setModalPosition] = useState(position);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (modalRef.current) {
+        const modalWidth = modalRef.current.offsetWidth;
+        setModalPosition({
+          top: position.top,
+          left: position.left - modalWidth,
+        });
+      }
+    };
+
+    handleResize(); // Initial calculation
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [position]);
 
   return (
-    <div className='modal'>
+    <div
+      ref={modalRef}
+      className='modal'
+      style={{
+        position: 'absolute',
+        top: `${modalPosition.top}px`,
+        left: `${modalPosition.left}px`,
+      }}
+    >
       <div className='modal-content'>
         <button onClick={onMarkAsUnread}>Mark as Unread</button>
         <button onClick={onDelete}>Delete</button>

@@ -1,8 +1,12 @@
+import { MouseEvent } from 'react';
 import { Contact } from './ContactList';
 
 type ContactItemProps = {
   contact: Contact;
-  onOpenModal: (contact: Contact) => void;
+  onOpenModal: (
+    contact: Contact,
+    position: { top: number; left: number }
+  ) => void;
   onSelect: (userId: string) => void;
   isSelected: boolean;
 };
@@ -13,6 +17,12 @@ const ContactItem = ({
   isSelected,
   onOpenModal,
 }: ContactItemProps) => {
+  const handleKebabMenuClick = (event: MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    const rect = event.currentTarget.getBoundingClientRect();
+    onOpenModal(contact, { top: rect.top, left: rect.left });
+  };
+
   return (
     <div
       className={`contact-item ${isSelected ? 'selected' : ''}`}
@@ -32,13 +42,7 @@ const ContactItem = ({
           )}
         </div>
       </div>
-      <div
-        className='kebab-menu'
-        onClick={(e) => {
-          e.stopPropagation(); // Prevent the contact item click event
-          onOpenModal(contact);
-        }}
-      >
+      <div className='kebab-menu' onClick={handleKebabMenuClick}>
         ⋮
       </div>
     </div>

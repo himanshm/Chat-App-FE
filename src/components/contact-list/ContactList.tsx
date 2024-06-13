@@ -12,7 +12,10 @@ export type Contact = {
 type ContactListProps = {
   contacts: Contact[];
   selectedContactId: string | null;
-  onOpenModal: (contact: Contact) => void;
+  onOpenModal: (
+    contact: Contact,
+    position: { top: number; left: number }
+  ) => void;
   onSelectContact: (userId: string) => void;
 };
 

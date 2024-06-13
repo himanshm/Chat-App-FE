@@ -10,18 +10,14 @@ const App = function () {
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentContact, setCurrentContact] = useState<Contact | null>(null);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
-  const handleSelectContact = (userId: string) => {
-    const contact = contacts.find((c) => c.userId === userId) || null;
-    setSelectedContact(contact);
-    // Remove unread count when conversation is opened
-    setContacts(
-      contacts.map((c) => (c.userId === userId ? { ...c, unreadCount: 0 } : c))
-    );
-  };
-
-  const handleOpenModal = (contact: Contact) => {
+  const handleOpenModal = (
+    contact: Contact,
+    position: { top: number; left: number }
+  ) => {
     setCurrentContact(contact);
+    setModalPosition(position);
     setIsModalOpen(true);
   };
 
@@ -51,6 +47,17 @@ const App = function () {
     }
   };
 
+  const handleSelectContact = (userId: string) => {
+    const contact = contacts.find((c) => c.userId === userId) || null;
+    setSelectedContact(contact);
+    // Remove unread count when conversation is opened
+    setContacts(
+      contacts.map((c) => (c.userId === userId ? { ...c, unreadCount: 0 } : c))
+    );
+
+    handleCloseModal();
+  };
+
   return (
     <div className='app'>
       <ContactList
@@ -68,10 +75,10 @@ const App = function () {
 
       {isModalOpen && (
         <Modal
-          isOpen={isModalOpen}
           onMarkAsUnread={handleMarkAsUnread}
           onDelete={handleDeleteConversation}
           onClose={handleCloseModal}
+          position={modalPosition}
         />
       )}
     </div>
