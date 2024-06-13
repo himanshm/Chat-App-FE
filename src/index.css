@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 100vh;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 30rem;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+.modal-content button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.modal-content button:last-child {
+  background-color: gray;
+}
+
+.sidebar {
+  padding: 2rem;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.contact-item {
+  display: grid;
+  grid-template-columns: 50px auto 24px;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-items: center;
+}
+
+.contact-item.selected {
+  background-color: #e0e0e0;
+}
+
+.contact-item:hover {
+  background-color: #e0e0e0;
+}
+
+.contact-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.contact-message {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  color: #888888;
+}
+
+.kebab-menu {
+  font-size: 24px;
+  cursor: pointer;
+  color: #888888;
+}
+.unread-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(50, 125, 50);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: white;
+  margin-right: 0.5rem;
+}
+
+.main-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.message p {
+  margin: 0;
+}
+
+.message span {
+  font-size: 0.8em;
+  color: gray;
+}
