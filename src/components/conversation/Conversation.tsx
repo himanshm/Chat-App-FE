@@ -1,4 +1,4 @@
-import { Chat } from '../utils/Data';
+import { Chat } from '../../utils/Data';
 
 type ConversationProps = {
   chat: Chat[];

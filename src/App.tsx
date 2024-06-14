@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ContactList from './components/contact-list/ContactList';
-import Conversation from './components/Conversation';
+import Conversation from './components/conversation/Conversation';
 import { data } from './utils/Data';
 import { Contact } from './utils/Data';
 import Modal from './components/contact-list/Modal';
