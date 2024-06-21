@@ -8,13 +8,14 @@ type ModalProps = {
 };
 
 function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
-  const [modalPosition, setModalPosition] = useState<
-    { top: number; left: number } | undefined
-  >(undefined);
+  const [modalPosition, setModalPosition] = useState<{
+    top: number;
+    left: number;
+  }>({ top: 0, left: 0 });
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleResize = () => {
+    const calculatePosition = () => {
       if (modalRef.current) {
         const modalWidth = modalRef.current.offsetWidth;
         setModalPosition({
@@ -24,11 +25,12 @@ function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
       }
     };
 
-    handleResize(); // Initial calculation
-    window.addEventListener('resize', handleResize);
+    calculatePosition(); // Initial calculation
+
+    window.addEventListener('resize', calculatePosition);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', calculatePosition);
     };
   }, [position]);
 
@@ -47,10 +49,6 @@ function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [onClose]);
-
-  if (!modalPosition) {
-    return null;
-  }
 
   return (
     <div
