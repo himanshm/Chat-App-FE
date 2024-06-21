@@ -1,21 +1,20 @@
-import { Contact } from '../contact-list/ContactList';
+import { useContactContext } from '../../store/useContactContext';
 import {
   HiOutlineVideoCamera,
   HiOutlinePhone,
   HiEllipsisVertical,
 } from 'react-icons/hi2';
 
-type HeaderProps = {
-  contact: Contact;
-};
-
-const Header = ({ contact }: HeaderProps) => {
+const Header = () => {
+  const { selectedContact } = useContactContext();
   return (
     <div className='header'>
       <div className='contact-info'>
-        <img src={contact.profilePictureURL} alt='profile Picture' />
+        {selectedContact && (
+          <img src={selectedContact.profilePictureURL} alt='profile Picture' />
+        )}
         <div>
-          <h3>{contact.name}</h3>
+          {selectedContact && <h3>{selectedContact.name}</h3>}
           <span>Click here for contact info</span>
         </div>
       </div>

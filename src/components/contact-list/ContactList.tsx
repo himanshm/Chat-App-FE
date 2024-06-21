@@ -1,5 +1,6 @@
 import ContactItem from './ContactItem';
 import { Chat } from '../../utils/Data';
+import { useContactContext } from '../../store/useContactContext';
 
 export type Contact = {
   userId: string;
@@ -9,22 +10,9 @@ export type Contact = {
   chat: Chat[];
 };
 
-type ContactListProps = {
-  contacts: Contact[];
-  selectedContactId: string | null;
-  onOpenModal: (
-    contact: Contact,
-    position: { top: number; left: number }
-  ) => void;
-  onSelectContact: (userId: string) => void;
-};
-
-const ContactList = ({
-  contacts,
-  selectedContactId,
-  onOpenModal,
-  onSelectContact,
-}: ContactListProps) => {
+const ContactList = () => {
+  const { contacts, selectedContact } = useContactContext();
+  const selectedContactId = selectedContact ? selectedContact.userId : null;
   return (
     <div className='sidebar'>
       <h2>Chats</h2>
@@ -32,8 +20,6 @@ const ContactList = ({
         <ContactItem
           key={contact.userId}
           contact={contact}
-          onSelect={onSelectContact}
-          onOpenModal={onOpenModal}
           isSelected={contact.userId === selectedContactId}
         />
       ))}

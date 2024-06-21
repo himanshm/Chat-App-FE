@@ -1,10 +1,8 @@
-import { Chat } from '../../utils/Data';
+import { useContactContext } from '../../store/useContactContext';
 
-type ChatAreaProps = {
-  chat: Chat[];
-};
-
-const ChatArea = ({ chat }: ChatAreaProps) => {
+const ChatArea = () => {
+  const { selectedContact } = useContactContext();
+  const chat = selectedContact ? selectedContact.chat : [];
   return (
     <div className='chat-area'>
       {chat.map((msg, index) => (

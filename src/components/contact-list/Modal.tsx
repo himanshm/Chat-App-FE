@@ -1,27 +1,55 @@
 import { useEffect, useRef, useState } from 'react';
+import { useContactContext } from '../../store/useContactContext';
 
-type ModalProps = {
-  onClose: () => void;
-  onMarkAsUnread: () => void;
-  onDelete: () => void;
-  position: { top: number; left: number };
-};
-
-function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
+function Modal() {
+  const {
+    closeModal,
+    position,
+    currentContact,
+    contacts,
+    setContacts,
+    selectedContact,
+    setSelectedContact,
+  } = useContactContext();
   const [modalPosition, setModalPosition] = useState<{
     top: number;
     left: number;
   }>({ top: 0, left: 0 });
   const modalRef = useRef<HTMLDivElement | null>(null);
 
+  const handleMarkAsUnread = () => {
+    if (currentContact) {
+      const updatedContacts = contacts.map((c) =>
+        c.userId === currentContact.userId ? { ...c, unreadCount: 1 } : c
+      );
+      setContacts(updatedContacts);
+      closeModal();
+    }
+  };
+
+  const handleDeleteConversation = () => {
+    if (currentContact) {
+      const updatedContacts = contacts.filter(
+        (c) => c.userId !== currentContact.userId
+      );
+      setContacts(updatedContacts);
+      if (selectedContact && selectedContact.userId === currentContact.userId) {
+        setSelectedContact(null);
+      }
+      closeModal();
+    }
+  };
+
   useEffect(() => {
     const calculatePosition = () => {
-      if (modalRef.current) {
-        const modalWidth = modalRef.current.offsetWidth;
-        setModalPosition({
-          top: position.top,
-          left: position.left - modalWidth,
-        });
+      if (position) {
+        if (modalRef.current) {
+          const modalWidth = modalRef.current.offsetWidth;
+          setModalPosition({
+            top: position.top,
+            left: position.left - modalWidth,
+          });
+        }
       }
     };
 
@@ -40,7 +68,7 @@ function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        onClose();
+        closeModal();
       }
     };
 
@@ -48,7 +76,7 @@ function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [onClose]);
+  }, [closeModal]);
 
   return (
     <div
@@ -61,9 +89,9 @@ function Modal({ onClose, onMarkAsUnread, onDelete, position }: ModalProps) {
       }}
     >
       <div className='modal-content'>
-        <button onClick={onMarkAsUnread}>Mark as Unread</button>
-        <button onClick={onDelete}>Delete</button>
-        <button onClick={onClose}>Cancel</button>
+        <button onClick={handleMarkAsUnread}>Mark as Unread</button>
+        <button onClick={handleDeleteConversation}>Delete</button>
+        <button onClick={closeModal}>Cancel</button>
       </div>
     </div>
   );
