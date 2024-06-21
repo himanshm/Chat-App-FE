@@ -67,10 +67,7 @@ const App = function () {
         selectedContactId={selectedContact ? selectedContact.userId : null}
       />
       {selectedContact && (
-        <Conversation
-          chat={selectedContact.chat}
-          contactName={selectedContact.name}
-        />
+        <Conversation chat={selectedContact.chat} contact={selectedContact} />
       )}
 
       {isModalOpen && (

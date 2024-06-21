@@ -1,5 +1,6 @@
 import { MouseEvent } from 'react';
 import { Contact } from './ContactList';
+import { HiEllipsisVertical } from 'react-icons/hi2';
 
 type ContactItemProps = {
   contact: Contact;
@@ -43,7 +44,7 @@ const ContactItem = ({
         </div>
       </div>
       <div className='kebab-menu' onClick={handleKebabMenuClick}>
-        ⋮
+        <HiEllipsisVertical />
       </div>
     </div>
   );

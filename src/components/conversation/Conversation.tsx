@@ -1,22 +1,20 @@
 import { Chat } from '../../utils/Data';
+import Header from './ConversationHeader';
+import ChatArea from './ChatArea';
+import MessageInput from './MessageInput';
+import { Contact } from '../contact-list/ContactList';
 
 type ConversationProps = {
   chat: Chat[];
-  contactName: string;
+  contact: Contact;
 };
 
-const Conversation = ({ chat, contactName }: ConversationProps) => {
+const Conversation = ({ chat, contact }: ConversationProps) => {
   return (
-    <div className='main-content'>
-      <h3>{contactName}</h3>
-      <div className='chat-messages'>
-        {chat.map((msg, index) => (
-          <div key={index} className='message'>
-            <p>{msg.user.message}</p>
-            <span>{msg.user.timeStamp}</span>
-          </div>
-        ))}
-      </div>
+    <div className='conversation'>
+      <Header contact={contact} />
+      <ChatArea chat={chat} />
+      <MessageInput />
     </div>
   );
 };
