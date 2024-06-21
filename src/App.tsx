@@ -10,7 +10,10 @@ const App = function () {
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentContact, setCurrentContact] = useState<Contact | null>(null);
-  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+  const [modalPosition, setModalPosition] = useState<{
+    top: number;
+    left: number;
+  } | null>(null);
 
   const handleOpenModal = (
     contact: Contact,
@@ -24,6 +27,7 @@ const App = function () {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setCurrentContact(null);
+    setModalPosition(null);
   };
 
   const handleMarkAsUnread = () => {
@@ -70,7 +74,7 @@ const App = function () {
         <Conversation chat={selectedContact.chat} contact={selectedContact} />
       )}
 
-      {isModalOpen && (
+      {isModalOpen && modalPosition && (
         <Modal
           onMarkAsUnread={handleMarkAsUnread}
           onDelete={handleDeleteConversation}

@@ -14,7 +14,7 @@ const Conversation = ({ chat, contact }: ConversationProps) => {
     <div className='conversation'>
       <Header contact={contact} />
       <ChatArea chat={chat} />
-      <MessageInput />
+      <MessageInput contact={contact} />
     </div>
   );
 };
