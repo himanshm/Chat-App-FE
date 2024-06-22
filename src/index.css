@@ -321,8 +321,7 @@ input {
     background-color: white;
     color: #333;
     border: none;
-    padding: 2rem;
-    font-size: 1.5rem;
+    padding: 0.9rem;
     cursor: pointer;
     width: 100%;
     text-align: left;
@@ -346,7 +345,7 @@ input {
   }
 
   .header {
-    margin: 1rem;
+    margin: 0 1rem;
   }
 
   .chat-area {
