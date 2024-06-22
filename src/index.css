@@ -23,6 +23,13 @@ body {
   height: 100vh;
 }
 
+.fallback-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
 .modal {
   position: absolute;
   background-color: white;
