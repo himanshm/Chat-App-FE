@@ -101,9 +101,14 @@ body {
 
 .contact-message {
   display: flex;
-  justify-content: space-between;
-  font-size: 1.2rem;
-  color: #888888;
+  align-items: center;
+  width: 100%;
+}
+
+.message-text {
+  flex: 1;
+  font-size: 1.3rem;
+  margin-right: 10px; /* Adjust spacing as needed */
 }
 
 .kebab-menu {
@@ -121,6 +126,9 @@ body {
   border-radius: 50%;
   color: white;
   margin-right: 0.5rem;
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .main-content {
@@ -298,4 +306,56 @@ input {
   font-size: 2rem;
   cursor: pointer;
   color: gray;
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+  .app {
+    display: block;
+  }
+
+  .back-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: white;
+    color: #333;
+    border: none;
+    padding: 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+
+  .back-button span h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-left: 2rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 1rem;
+    border-right: none;
+  }
+
+  .conversation {
+    width: 100%;
+  }
+
+  .header {
+    margin: 1rem;
+  }
+
+  .chat-area {
+    flex: 1;
+    margin: 0;
+    overflow-y: auto;
+  }
+
+  .message-input {
+    margin: 0;
+  }
 }

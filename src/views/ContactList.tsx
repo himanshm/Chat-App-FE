@@ -1,6 +1,6 @@
-import ContactItem from './ContactItem';
-import { Chat } from '../../utils/Data';
-import { useContactContext } from '../../store/useContactContext';
+import ContactItem from '../components/contact-list/ContactItem';
+import { Chat } from '../utils/Data';
+import { useContactContext } from '../store/useContactContext';
 
 export type Contact = {
   userId: string;
@@ -13,6 +13,7 @@ export type Contact = {
 const ContactList = () => {
   const { contacts, selectedContact } = useContactContext();
   const selectedContactId = selectedContact ? selectedContact.userId : null;
+
   return (
     <div className='sidebar'>
       <h2>Chats</h2>

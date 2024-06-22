@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { Contact } from './ContactList';
+import { Contact } from '../../views/ContactList';
 import { HiEllipsisVertical } from 'react-icons/hi2';
 import { useContactContext } from '../../store/useContactContext';
 
@@ -42,7 +42,9 @@ const ContactItem = ({ contact, isSelected }: ContactItemProps) => {
       <div className='contact-details'>
         <div className='contact-name'>{contact.name}</div>
         <div className='contact-message'>
-          {contact.chat[contact.chat.length - 1].you.message}
+          <span className='message-text'>
+            {contact.chat[contact.chat.length - 1].you.message}
+          </span>
           {contact.unreadCount > 0 && (
             <div className='unread-count'>{contact.unreadCount}</div>
           )}

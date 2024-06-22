@@ -4,6 +4,7 @@ import {
   ReactNode,
   SetStateAction,
   useState,
+  useEffect,
 } from 'react';
 import { Contact, data } from '../utils/Data';
 
@@ -18,6 +19,7 @@ type ContactContextType = {
   currentContact: Contact | null;
   setCurrentContact: Dispatch<SetStateAction<Contact | null>>;
   position: { top: number; left: number } | null;
+  isMobile: boolean;
 };
 
 export const ContactContext = createContext<ContactContextType | undefined>(
@@ -37,6 +39,7 @@ function ContactProvider({ children }: ContactProviderProps) {
     top: number;
     left: number;
   } | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const openModal = (
     contact: Contact,
@@ -53,6 +56,16 @@ function ContactProvider({ children }: ContactProviderProps) {
     setModalPosition(null);
   };
 
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const contextValue: ContactContextType = {
     contacts,
     setContacts,
@@ -64,6 +77,7 @@ function ContactProvider({ children }: ContactProviderProps) {
     currentContact,
     setCurrentContact,
     position: modalPosition,
+    isMobile,
   };
   return (
     <ContactContext.Provider value={contextValue}>
